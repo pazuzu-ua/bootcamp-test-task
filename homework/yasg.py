@@ -11,7 +11,7 @@ schema_view = get_schema_view(
         description='This api was created as part of the COAX Bootcamp.',
     ),
     public=True,
-    permission_classes=(permissions.AllowAny,)
+    permission_classes=(permissions.IsAuthenticatedOrReadOnly,)
 )
 
 swagger_pattern = path('', schema_view.with_ui("swagger", cache_timeout=0),

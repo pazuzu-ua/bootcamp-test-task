@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # packages
     'drf_yasg',
     'rest_framework',
+    'django_filters',
     # apps
     'apps.orders',
 ]
@@ -127,3 +128,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': ('rest_framework.throttling.AnonRateThrottle',),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '10/second',
+    },
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.SessionAuthentication',),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'PAGE_SIZE': 10,
+}
+
+SWAGGER_SETTINGS = {
+   'PERSIST_AUTH': True,
+}
