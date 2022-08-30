@@ -23,3 +23,9 @@ A custom valiadator was set for Products. It requires price to be multiple of .2
 ### Throttling
 
 Throttling was set up for Unauthorized Users to defend against webscrapping.
+
+## Exercise 3
+
+### Celery tasks
+
+Added 2 Celery Task. 1st creates a random Product every 5 minutes by using Factory Boy with faker. 2nd one just reports an item that was retrieved by customer.
