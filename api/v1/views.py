@@ -2,6 +2,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.viewsets import ModelViewSet
 from apps.orders.models import Order, Product
+from apps.orders.tasks import big_brother
 from api.v1.serializers import OrderSerializer, ProductSerializer
 from api.v1.permissions import OnlyAdminsCanDelete
 from django_filters.rest_framework import DjangoFilterBackend
@@ -34,3 +35,8 @@ class ProductViewSet(ModelViewSet):
     filterset_fields = ('name', 'description')
     search_fields = ('name', 'description')
     ordering_fields = ('created_at', 'name', 'price')
+
+    def retrieve(self, request, *args, **kwargs):
+        key = kwargs.get('pk')
+        big_brother(key)
+        return super().retrieve(request, *args, **kwargs)
